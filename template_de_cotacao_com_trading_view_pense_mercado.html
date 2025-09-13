@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cotação <span id="metaSymbol">MGLU3</span> hoje | Pense Mercado</title>
+  <meta name="description" content="Cotação, gráfico em tempo quase real, análise técnica e perfil da empresa. Página otimizada para SEO do Pense Mercado." />
+  <link rel="canonical" id="canonicalLink" href="https://pensemercado.com/cotacao.html" />
+  <meta property="og:title" content="Cotação MGLU3 hoje | Pense Mercado" />
+  <meta property="og:description" content="Gráfico avançado, análise técnica e perfil da empresa em um só lugar." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://pensemercado.com/cotacao.html" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta name="robots" content="index,follow" />
+  <style>
+    :root{
+      --bg:#0b0f17; --card:#111827; --muted:#9ca3af; --text:#e5e7eb; --accent:#22d3ee; --ok:#34d399; --warn:#f59e0b; --err:#ef4444;
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial}
+    a{color:var(--accent);text-decoration:none}
+    .wrap{max-width:1200px;margin:0 auto;padding:24px}
+    header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:8px 0 24px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand .dot{width:10px;height:10px;border-radius:999px;background:var(--accent);box-shadow:0 0 18px var(--accent)}
+    h1{font-size: clamp(22px, 2vw, 30px); margin:0}
+    .sub{color:var(--muted);font-size:14px}
+    .grid{display:grid;grid-template-columns:1.4fr .6fr;gap:20px}
+    .card{background:linear-gradient(180deg,#0e1421 0%,#0b0f17 100%);border:1px solid #1f2937;border-radius:var(--radius);padding:16px}
+    .card h2{margin:0 0 12px;font-size:18px}
+    .pill{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:999px;background:#0d1726;border:1px solid #1f2937;color:#cbd5e1;font-size:12px}
+    .row{display:flex;flex-wrap:wrap;gap:10px}
+    .muted{color:var(--muted)}
+    footer{margin:32px 0 16px;color:var(--muted);font-size:13px}
+    .disclaimer{font-size:12px;color:#94a3b8}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+    @media (max-width: 980px){.grid{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+    .chip{padding:4px 8px;border-radius:8px;background:#0d1726;border:1px solid #1f2937;color:#cbd5e1;font-size:12px}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:0 0 8px}
+    .toolbar .left{display:flex;align-items:center;gap:8px}
+    .toolbar input{background:#0b1220;border:1px solid #1f2937;color:#e5e7eb;border-radius:10px;padding:8px 10px;min-width:200px}
+    .note{font-size:12px;color:#93c5fd}
+  </style>
+  <!-- JSON-LD básico para SEO (ajuste conforme seu CMS) -->
+  <script type="application/ld+json" id="jsonld">
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialProduct",
+    "name": "Cotação MGLU3",
+    "description": "Cotação e gráfico avançado de MGLU3 (Magazine Luiza) com widgets TradingView.",
+    "url": "https://pensemercado.com/cotacao.html",
+    "brand": {"@type": "Brand", "name": "Pense Mercado"}
+  }
+  </script>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand"><span class="dot"></span><strong>Pense Mercado</strong></div>
+      <div class="row">
+        <span class="pill">Dados exibidos via TradingView (podem ter delay)</span>
+      </div>
+    </header>
+
+    <section class="card">
+      <div class="toolbar">
+        <div class="left">
+          <h1 id="pageTitle">Cotação <span id="symbolTitle">MGLU3</span> hoje</h1>
+          <span class="chip" id="exchangeChip">BMFBOVESPA</span>
+        </div>
+        <div class="right">
+          <input id="symbolInput" type="text" placeholder="Ex.: B3SA3, PETR4, AAPL" />
+          <button class="chip" id="applySymbol">Aplicar</button>
+        </div>
+      </div>
+      <p class="sub">Gráfico avançado, análise técnica e perfil da empresa — tudo em uma única página leve e otimizada para SEO.</p>
+    </section>
+
+    <div class="grid" style="margin-top:20px;">
+      <section class="card">
+        <h2>Gráfico avançado</h2>
+        <!-- TradingView Advanced Chart -->
+        <div id="tv-advanced" class="tv-embed"></div>
+      </section>
+      <aside class="card">
+        <h2>Visão rápida & Técnica</h2>
+        <div id="tv-technical" style="margin-bottom:16px;"></div>
+        <div id="tv-profile"></div>
+      </aside>
+    </div>
+
+    <div class="two" style="margin-top:20px;">
+      <section class="card">
+        <h2>Resumo do Ativo</h2>
+        <p class="muted" id="summary">Use o seletor acima para trocar o ticker. Ex.: <strong>MGLU3</strong>, <strong>PETR4</strong>, <strong>VALE3</strong>, <strong>WEGE3</strong>. Para ações dos EUA, digite o ticker (ex.: <strong>AAPL</strong>, <strong>MSFT</strong>). O script ajusta automaticamente a bolsa quando possível.</p>
+        <p class="note">Dica SEO: adicione um parágrafo explicando <em>o que a empresa faz</em>, setor, drivers de resultado e links internos para conteúdos do Pense Mercado.</p>
+      </section>
+      <section class="card">
+        <h2>Mercado agora</h2>
+        <div id="tv-tape"></div>
+      </section>
+    </div>
+
+    <footer>
+      <p class="disclaimer">Conteúdo educacional. Não constitui recomendação de investimento. Cotações e widgets fornecidos por TradingView; podem estar sujeitos a atraso conforme regras de mercado.</p>
+      <p class="muted">© <span id="year"></span> Pense Mercado</p>
+    </footer>
+  </div>
+
+  <!-- TradingView base script (carrega sob demanda para cada widget) -->
+  <script>
+    // Utilidades
+    const $ = (sel)=>document.querySelector(sel);
+    const params = new URLSearchParams(location.search);
+    const raw = (params.get('ticker')||'MGLU3').toUpperCase().trim();
+
+    // Mapeia bolsa automaticamente para alguns casos comuns (BR/EUA)
+    function resolveSymbol(user){
+      const br = ['3','4','11']; // sufixos populares no BR
+      const isBR = br.some(suf => user.endsWith(suf));
+      if(isBR) return `BMFBOVESPA:${user}`;
+      // Se já vier com exchange, respeita
+      if(user.includes(':')) return user;
+      // fallback: presume EUA (NASDAQ/NYSE). TradingView resolve
+      return user;
+    }
+
+    let symbol = resolveSymbol(raw);
+
+    function setSEO(symbolHuman){
+      const title = `Cotação ${symbolHuman} hoje | Pense Mercado`;
+      document.title = title;
+      document.querySelector('meta[property="og:title"]').setAttribute('content', title);
+      // canonical com ticker
+      const url = new URL(location.href);
+      url.searchParams.set('ticker', symbolHuman);
+      document.getElementById('canonicalLink').setAttribute('href', url.toString());
+      // JSON-LD
+      try{
+        const json = JSON.parse(document.getElementById('jsonld').textContent);
+        json.name = `Cotação ${symbolHuman}`;
+        json.url = url.toString();
+        json.description = `Cotação e gráfico avançado de ${symbolHuman} com widgets TradingView.`;
+        document.getElementById('jsonld').textContent = JSON.stringify(json);
+      }catch(e){}
+    }
+
+    function paintHeaders(symbolHuman){
+      $('#symbolTitle').textContent = symbolHuman;
+      const isBR = symbolHuman.match(/\d{1,2}$/);
+      $('#exchangeChip').textContent = isBR ? 'BMFBOVESPA' : '—';
+    }
+
+    // Widgets TradingView
+    function loadScript(src){
+      return new Promise(res=>{const s=document.createElement('script');s.src=src;s.onload=res;document.body.appendChild(s)});
+    }
+
+    function mountWidgets(sym){
+      // Limpa containers
+      $('#tv-advanced').innerHTML='';
+      $('#tv-technical').innerHTML='';
+      $('#tv-profile').innerHTML='';
+      $('#tv-tape').innerHTML='';
+
+      // Advanced Real-Time Chart
+      const adv = document.createElement('script');
+      adv.src = 'https://s3.tradingview.com/tv.js';
+      adv.onload = ()=>{
+        new TradingView.widget({
+          autosize: true,
+          symbol: sym,
+          interval: '60',
+          timezone: 'America/Sao_Paulo',
+          theme: 'dark',
+          style: '1',
+          locale: 'br',
+          container_id: 'tv-advanced',
+          studies: ['MACD@tv-basicstudies','RSI@tv-basicstudies'],
+          withdateranges: true,
+          hide_side_toolbar: false,
+          allow_symbol_change: true
+        });
+      };
+      document.body.appendChild(adv);
+
+      // Technical Analysis
+      const ta = document.createElement('script');
+      ta.src = 'https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js';
+      ta.async = true;
+      ta.innerHTML = JSON.stringify({
+        interval: '1D',
+        width: '100%',
+        isTransparent: true,
+        height: 300,
+        symbol: sym,
+        showIntervalTabs: true,
+        locale: 'br',
+        colorTheme: 'dark'
+      });
+      $('#tv-technical').appendChild(ta);
+
+      // Company Profile (mostra setor, descrição, etc.)
+      const prof = document.createElement('script');
+      prof.src = 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-profile.js';
+      prof.async = true;
+      prof.innerHTML = JSON.stringify({
+        width: '100%',
+        height: 300,
+        colorTheme: 'dark',
+        isTransparent: true,
+        symbol: sym,
+        locale: 'br'
+      });
+      $('#tv-profile').appendChild(prof);
+
+      // Ticker Tape (você pode personalizar a lista)
+      const tape = document.createElement('script');
+      tape.src = 'https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js';
+      tape.async = true;
+      tape.innerHTML = JSON.stringify({
+        symbols: [
+          {proName: 'BMFBOVESPA:IBOV', title:'Ibovespa'},
+          {proName: 'BMFBOVESPA:PETR4', title:'PETR4'},
+          {proName: 'BMFBOVESPA:VALE3', title:'VALE3'},
+          {proName: 'BMFBOVESPA:WEGE3', title:'WEGE3'},
+          {proName: 'BMFBOVESPA:MGLU3', title:'MGLU3'},
+          {proName: 'BMFBOVESPA:B3SA3', title:'B3SA3'},
+          {proName: 'CAPITALCOM:US100', title:'Nasdaq 100'},
+          {proName: 'BLACKBULL:SPX500', title:'S&P 500'},
+          {proName: 'FOREXCOM:USDJPY', title:'USD/JPY'}
+        ],
+        showSymbolLogo: true,
+        colorTheme: 'dark',
+        isTransparent: true,
+        displayMode: 'adaptive',
+        locale: 'br'
+      });
+      $('#tv-tape').appendChild(tape);
+    }
+
+    function apply(symHuman){
+      const resolved = resolveSymbol(symHuman);
+      symbol = resolved;
+      setSEO(symHuman);
+      paintHeaders(symHuman);
+      mountWidgets(resolved);
+      // Atualiza URL sem recarregar
+      const url = new URL(location.href); url.searchParams.set('ticker', symHuman); history.replaceState({}, '', url);
+    }
+
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', ()=>{
+      const human = raw.includes(':') ? raw.split(':')[1] : raw;
+      $('#symbolInput').value = human;
+      setSEO(human); paintHeaders(human); mountWidgets(symbol);
+      $('#applySymbol').addEventListener('click', ()=>{
+        const input = $('#symbolInput').value.trim().toUpperCase();
+        if(!input) return; apply(input);
+      });
+      $('#symbolInput').addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ $('#applySymbol').click(); }});
+      $('#year').textContent = new Date().getFullYear();
+    });
+  </script>
+</body>
+</html>
