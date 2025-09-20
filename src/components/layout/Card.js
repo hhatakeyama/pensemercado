@@ -1,4 +1,4 @@
-export default function Card({ icon, title, text, cta, href, ctaProps }) {
+export default function Card({ children, icon, title, text, cta, href, ctaProps }) {
   return (
     <div className="p-5 rounded-2xl bg-gradient-to-b from-white/5 to-white/2 border border-white/10 shadow-md shadow-slate-950">
       <div className="flex gap-4 items-center mb-3">
@@ -14,6 +14,7 @@ export default function Card({ icon, title, text, cta, href, ctaProps }) {
           </a>
         </>
       )}
+      {children}
     </div>
   )
 }
