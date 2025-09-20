@@ -22,9 +22,9 @@ export default function View() {
       <div className="container mx-auto px-5">
         <div className="flex flex-col gap-5">
           <header className="flex justify-between">
-            <div className="text-4xl"><strong>{params?.ticker}</strong></div>
+            <h2 className="text-4xl font-bold">{params?.ticker}</h2>
             <span className="inline-block text-xs uppercase tracking-widest text-indigo-200 bg-blue-500/10 px-3 py-2 border border-blue-500/35 rounded-full">
-              Dados exibidos com 30min de delay
+              Dados exibidos com até 30min de delay
             </span>
           </header>
 

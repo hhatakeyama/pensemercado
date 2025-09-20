@@ -36,7 +36,7 @@ export default function RootLayout({ children }) {
           <Footer />
           <div className="fixed bottom-4 right-4 z-50">
             <a title="Falar no WhatsApp" href="https://wa.me/5511973747005?text=Ol%C3%A1%2C%20vim%20do%20site%20Pense%20Mercado" target="_blank" rel="noopener noreferrer" className="inline-grid place-items-center w-14 h-14 rounded-full bg-green-500 text-slate-950 font-black text-2xl shadow-lg shadow-green-950 transition hover:brightness-110">
-              &#128994
+              📱
             </a>
           </div>
         </div>
