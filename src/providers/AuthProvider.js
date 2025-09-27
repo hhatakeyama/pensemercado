@@ -5,8 +5,6 @@ import { createContext, useContext, useEffect, useState } from 'react'
 import api from '@/utils/api'
 import useFetch from '@/hooks/useFetch'
 
-const cookieTokenString = 'pense-mercado-api-session'
-
 const AuthContext = createContext(null)
 
 export const useAuth = () => useContext(AuthContext)
@@ -19,7 +17,7 @@ function useProvideAuth() {
 
   // Fetch
   const { data: userData, isValidating: userIsValidating, mutate: userMutate } = useFetch(
-    ['/me'], { revalidateOnFocus: false }
+    ['/cms/me'], { revalidateOnFocus: false }
   )
 
   // Login with credentials
@@ -27,7 +25,7 @@ function useProvideAuth() {
     setLoading(true)
     await api.get('/sanctum/csrf-cookie')
     await api
-      .post('/api/login', {
+      .post('/api/cms/login', {
         email: credentials.email,
         password: credentials.password
       })
@@ -69,23 +67,21 @@ function useProvideAuth() {
   // Logout user from API
   const logout = async () => {
     try {
-      await api.post('/api/logout')
+      await api.post('/api/cms/logout')
     } finally {
-      removeCookie(cookieTokenString)
-      removeStorage('services')
       setIsAuthenticated(false)
     }
   }
 
   // Send reset password link
   const forgotPassword = async (email) => {
-    const response = await api.post('/api/password-reset', { email })
+    const response = await api.post('/api/cms/password-reset', { email })
     return response
   }
 
   // Reset password
   const resetPassword = async (password, uidb64, hash) => {
-    const response = await api.post('/api/password-reset/confirm', {
+    const response = await api.post('/api/cms/password-reset/confirm', {
       password,
       uidb64,
       token: hash
@@ -111,7 +107,7 @@ function useProvideAuth() {
     updateUser,
     isAuthenticated,
     isValidating,
-    userData: userData?.data || {}
+    userData
   }
 }
 

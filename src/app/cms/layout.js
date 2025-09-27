@@ -1,12 +1,11 @@
-import { SWRConfig } from "swr"
 import "../globals.css"
 
 import Providers from "./Providers"
-import fetcher from "@/utils/fetcher"
+import Nav from "@/components/cms/layout/Nav"
 
 export const metadata = {
-  title: "Pense Mercado",
-  description: "Pense Mercado",
+  title: "Pense Mercado CMS",
+  description: "Pense Mercado CMS",
 }
 
 export default function RootLayout({ children }) {
@@ -15,11 +14,12 @@ export default function RootLayout({ children }) {
       <head>
       </head>
       <body className="h-dvh">
-        <div className="relative">
-          <Providers>
+        <Providers>
+          <Nav />
+          <div className="relative">
             {children}
-          </Providers>
-        </div>
+          </div>
+        </Providers>
       </body>
     </html>
   )

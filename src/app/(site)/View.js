@@ -1,14 +1,14 @@
 'use client'
 
+import Link from 'next/link'
 import React from 'react'
 
 import Section from "@/components/layout/Section"
 import Card from "@/components/layout/Card"
+import Newsletter from '@/components/forms/Newsletter'
+import Contact from '@/components/forms/Contact'
 
 import Hero from "./_components/Hero"
-import Contact from "./_components/Contact"
-import Newsletter from './_components/Newsletter'
-import Link from 'next/link'
 
 export default function View() {
   return (

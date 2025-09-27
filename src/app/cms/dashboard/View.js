@@ -1,27 +1,27 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 
-import Section from '@/components/layout/Section'
 import { useAuth } from '@/providers/AuthProvider'
-import useSWR from 'swr'
-import { avFetcher } from '@/utils/fetcher'
+import Content from '@/components/layout/Content'
+import Stack from '@/components/layout/Stack'
+import Link from 'next/link'
 
 export default function View() {
-  const { isAuthenticated } = useAuth()
-
-  const [search, setSearch] = useState('')
-
-  const { data } = useSWR(search ? {
-    function: 'SYMBOL_SEARCH',
-    keywords: search,
-  } : null, avFetcher)
-  console.log(data)
+  const { userData } = useAuth()
 
   return (
-    <Section>
-      <input type="text" className="border-red-100" value={search} onChange={e => setSearch(e.target.value)} />
-      {isAuthenticated ? "Logado" : "Não"}
-    </Section>
+    <Content>
+      <Stack>
+        <h1 className="text-2xl">Dashboard</h1>
+        Bem-vindo {userData?.name}, acesse os dados no menu abaixo:
+        
+        <div className="flex gap-2">
+          <Link className="block px-3 py-2 rounded-lg text-slate-300 bg-slate-800 hover:bg-slate-600" href="/cms/conteudos">Conteúdos</Link>
+          <Link className="block px-3 py-2 rounded-lg text-slate-300 bg-slate-800 hover:bg-slate-600" href="/cms/contatos">Contatos</Link>
+          <Link className="block px-3 py-2 rounded-lg text-slate-300 bg-slate-800 hover:bg-slate-600" href="/cms/newsletters">Newsletters</Link>
+        </div>
+      </Stack>
+    </Content>
   )
 }
