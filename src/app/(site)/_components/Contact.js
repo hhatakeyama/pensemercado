@@ -2,6 +2,7 @@ import React, { useState } from "react"
 
 import Section from "@/components/layout/Section"
 import Link from "next/link"
+import api from "@/utils/api"
 
 export default function Contact() {
   const [status, setStatus] = useState(null)
@@ -10,22 +11,21 @@ export default function Contact() {
     e.preventDefault()
     const formData = new FormData(e.target)
     const data = Object.fromEntries(formData.entries())
-    if (!data.nome || !data.email || !data.mensagem) {
+    if (!data.name || !data.email || !data.message) {
       return false
     }
 
-    try {
-      const inbox = JSON.parse(localStorage.getItem('pm_msgs') || '[]')
-      inbox.push({ nome: data.nome, email: data.email, msg: data.mensagem, ts: Date.now() })
-      localStorage.setItem('pm_msgs', JSON.stringify(inbox))
-      setStatus("success")
-      e.target.reset()
-    } catch (e) {
-      console.error("Failed to save to local storage:", e)
-      setStatus("error")
-    }
-
-    setTimeout(() => setStatus(null), 3500)
+    api
+      .post('/api/contact', data)
+      .then(response => {
+        console.log(response)
+        e.target.reset()
+        setStatus("success")
+      })
+      .catch(err => {
+        console.log(err)
+        setStatus("error")
+      })
   }
 
   return (
@@ -39,7 +39,7 @@ export default function Contact() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-slate-400 text-sm mb-1" htmlFor="ctNome">Nome</label>
-              <input id="ctNome" name="nome" className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Seu nome" required />
+              <input id="ctNome" name="name" className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Seu nome" required />
             </div>
             <div>
               <label className="block text-slate-400 text-sm mb-1" htmlFor="ctEmail">E‑mail</label>
@@ -47,8 +47,12 @@ export default function Contact() {
             </div>
           </div>
           <label className="block text-slate-400 text-sm mt-4 mb-1" htmlFor="ctMsg">Mensagem</label>
-          <textarea id="ctMsg" name="mensagem" className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Como podemos ajudar?" required></textarea>
-          <button className="w-full px-4 py-3 rounded-xl bg-gradient-to-br from-green-500 to-green-600 text-slate-950 font-extrabold mt-4 transition hover:brightness-105" type="submit">Enviar</button>
+          <textarea id="ctMsg" name="message" className="w-full px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" rows="3" placeholder="Como podemos ajudar?" required></textarea>
+          <button
+            type="submit"
+            className="w-full px-4 py-3 rounded-xl bg-gradient-to-br from-green-500 to-green-600 text-white font-extrabold mt-4 transition hover:brightness-105">
+            Enviar
+          </button>
           {status === "success" && <p className="mt-3 text-emerald-400">✅ Mensagem registrada! Responderemos em breve.</p>}
         </form>
         <div className="p-5 rounded-2xl bg-gradient-to-b from-white/5 to-white/2 border border-white/10 shadow-md shadow-slate-950">

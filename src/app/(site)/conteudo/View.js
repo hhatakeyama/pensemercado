@@ -39,17 +39,17 @@ export default function View() {
           <h1 className="text-4xl font-bold">{data.title}</h1>
 
           <div className="flex flex-col gap-4">
-            <h2 className="text-4xl font-bold">Notícias</h2>
-            {data.map(noticia => (
-              <Link key={noticia.id} href={`/conteudo/${noticia.slug}`}>
+            <h2 className="text-4xl font-bold">Conteúdos</h2>
+            {data.map(conteudo => (
+              <Link key={conteudo.id} href={`/conteudo/${conteudo.slug}`}>
                 <Card>
                   <div className="flex gap-4">
                     <div className="flex flex-col gap-4">
-                      <Image alt={noticia.title} src={noticia.image} width={100} height={100} />
+                      <Image alt={conteudo.title} src={conteudo.image} width={100} height={100} />
                     </div>
                     <div className="flex flex-col gap-4">
-                      <h2 className="text-2xl font-bold">{noticia.title}</h2>
-                      {noticia.description}
+                      <h2 className="text-2xl font-bold">{conteudo.title}</h2>
+                      {conteudo.description}
                     </div>
                   </div>
                 </Card>

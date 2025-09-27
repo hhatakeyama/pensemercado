@@ -34,7 +34,7 @@ export default function Hero() {
               Conteúdos gratuitos e premium para quem quer organizar a vida financeira, aprender a investir e montar fontes de renda. Linguagem direta, termos técnicos explicados e muito pé no chão.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a className="inline-flex items-center gap-2 px-4 py-3 rounded-xl font-bold bg-gradient-to-br from-blue-500 to-blue-400 text-slate-950 transition hover:brightness-105" href="#assine">📥 Baixar E-book grátis</a>
+              <a className="inline-flex items-center gap-2 px-4 py-3 rounded-xl font-bold bg-gradient-to-br from-blue-500 to-blue-400 text-white transition hover:brightness-105" href="#assine">📥 Baixar E-book grátis</a>
               <a className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-white/10 bg-slate-900 text-slate-200 transition hover:bg-slate-800" href="#conteudos">Ver conteúdos</a>
               <a className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-white/10 bg-slate-900 text-slate-200 transition hover:bg-slate-800" href="https://wa.me/5511973747005?text=Quero%20entrar%20no%20grupo%20Pense%20Mercado" target="_blank" rel="noopener noreferrer">Entrar no WhatsApp</a>
             </div>

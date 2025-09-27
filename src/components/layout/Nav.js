@@ -1,11 +1,17 @@
 'use client'
 
-import Spotlight from "@/app/_components/Spotlight"
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import React, { useState } from "react"
 
+import Spotlight from "@/app/(site)/_components/Spotlight"
+
 export default function Nav() {
+  const pathname = usePathname()
+
+  const isHome = pathname === "/"
+
   const [openSpotlight, setOpenSpotlight] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
@@ -38,15 +44,38 @@ export default function Nav() {
           </div>
           <nav aria-label="Principal" className="hidden md:block">
             <ul className="flex gap-0 lg:gap-4 list-none m-0 p-0">
-              <li><a href="#conteudos" className="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Conteúdos</a></li>
-              <li><a href="#assine" className="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Assinatura</a></li>
-              <li><a href="#sobre" className="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Sobre</a></li>
-              <li><a href="#faq" className="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">FAQ</a></li>
+              {isHome ? (
+                <>
+                  <li><a href="#conteudos" className="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Conteúdos</a></li>
+                  <li><a href="#assine" className="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Assinatura</a></li>
+                  <li><a href="#sobre" className="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Sobre</a></li>
+                  <li><a href="#faq" className="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">FAQ</a></li>
+                </>
+              ) : (
+                <>
+                  <li><Link href="/conteudo" className="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Conteúdos</Link></li>
+                  <li><Link href="/#assine" className="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Assinatura</Link></li>
+                  <li><Link href="/#sobre" className="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">Sobre</Link></li>
+                  <li><Link href="/#faq" className="block px-3 py-2 rounded-lg text-slate-300 hover:bg-slate-800">FAQ</Link></li>
+                </>
+              )}
             </ul>
           </nav>
-          <a className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-br from-green-500 to-green-600 text-white font-bold shadow-lg shadow-slate-900 transition hover:brightness-105" href="#assine" aria-label="Assinar a newsletter">
-            Quero aprender
-          </a>
+          {isHome ? (
+            <a
+              href="#assine"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-br from-green-500 to-green-600 text-white font-bold shadow-lg shadow-slate-900 transition hover:brightness-105"
+              aria-label="Assinar a newsletter">
+              Quero aprender
+            </a>
+          ) : (
+            <Link
+              href="/#assine"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-br from-green-500 to-green-600 text-white font-bold shadow-lg shadow-slate-900 transition hover:brightness-105"
+              aria-label="Assinar a newsletter">
+              Quero aprender
+            </Link>
+          )}
           <button className="md:hidden text-xl text-slate-300 bg-transparent border-0" aria-label="Abrir menu" onClick={toggleMenu}>
             &#9776;
           </button>

@@ -2,6 +2,6 @@ import React from 'react'
 
 import View from './View'
 
-export default function Conteudo() {
+export default function Conteudos() {
   return <View />
 }

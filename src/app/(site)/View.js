@@ -8,6 +8,7 @@ import Card from "@/components/layout/Card"
 import Hero from "./_components/Hero"
 import Contact from "./_components/Contact"
 import Newsletter from './_components/Newsletter'
+import Link from 'next/link'
 
 export default function View() {
   return (
@@ -21,13 +22,20 @@ export default function View() {
         </div>
       </Section>
       <Section id="conteudos" title="Conteúdos" subtitle="Gratuito para começar, premium para ir além.">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Card icon="📝" title="Artigos" text="Tutoriais práticos, notícias explicadas e análises com linguagem direta." cta="Receber no e-mail" href="#assine" />
-          <Card icon="🎥" title="Vídeos" text="YouTube com roteiros objetivos e exemplos reais para acelerar seu aprendizado." cta="Ir para o canal" href="https://www.youtube.com/@pensemercado" ctaProps={{ target: "_blank" }} />
-          <Card icon="📊" title="Planilhas" text="Orçamento, reserva, carteira e metas - tudo pronto para você copiar e usar." cta="Baixar modelos" href="#assine" />
-          <Card icon="🔒" title="Premium Club" text="Conteúdos exclusivos, aulões e modelos avançados para acelerar resultados." cta="Ver benefícios" href="#premium" />
-          <Card icon="📬" title="Newsletter" text="Resumo semanal com o essencial do mercado e dicas práticas." cta="Assinar grátis" href="#assine" />
-          <Card icon="🤝" title="Consultoria" text="Mentoria pontual para organizar finanças pessoais ou do seu negócio." cta="Falar comigo" href="#contato" />
+        <div className="flex flex-col gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <Card icon="📝" title="Artigos" text="Tutoriais práticos, notícias explicadas e análises com linguagem direta." cta="Receber no e-mail" href="#assine" />
+            <Card icon="🎥" title="Vídeos" text="YouTube com roteiros objetivos e exemplos reais para acelerar seu aprendizado." cta="Ir para o canal" href="https://www.youtube.com/@pensemercado" ctaProps={{ target: "_blank" }} />
+            <Card icon="📊" title="Planilhas" text="Orçamento, reserva, carteira e metas - tudo pronto para você copiar e usar." cta="Baixar modelos" href="#assine" />
+            <Card icon="🔒" title="Premium Club" text="Conteúdos exclusivos, aulões e modelos avançados para acelerar resultados." cta="Ver benefícios" href="#premium" />
+            <Card icon="📬" title="Newsletter" text="Resumo semanal com o essencial do mercado e dicas práticas." cta="Assinar grátis" href="#assine" />
+            <Card icon="🤝" title="Consultoria" text="Mentoria pontual para organizar finanças pessoais ou do seu negócio." cta="Falar comigo" href="#contato" />
+          </div>
+          <div>
+            <Link href="/conteudo" className="inline-flex items-center gap-2 px-4 py-3 rounded-xl font-bold bg-gradient-to-br from-blue-500 to-blue-400 text-white transition hover:brightness-105">
+              Ver Conteúdos
+            </Link>
+          </div>
         </div>
       </Section>
       <Newsletter />

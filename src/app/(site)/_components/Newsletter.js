@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 
 import Section from "@/components/layout/Section"
+import api from "@/utils/api"
 
 export default function Newsletter() {
   const [status, setStatus] = useState(null)
@@ -15,21 +16,17 @@ export default function Newsletter() {
       return
     }
 
-    try {
-      const existingLeads = JSON.parse(localStorage.getItem('pm_leads') || '[]')
-      existingLeads.push({
-        nome: data.nome || '',
-        email: data.email,
-        utm: data.utm || localStorage.getItem('pm_utm') || '',
-        ts: Date.now()
+    api
+      .post('/api/newsletter', data)
+      .then(response => {
+        console.log(response)
+        e.target.reset()
+        setStatus("success")
       })
-      localStorage.setItem('pm_leads', JSON.stringify(existingLeads))
-      setStatus("success")
-      e.target.reset()
-    } catch (err) {
-      console.error("Failed to save to local storage:", err)
-      setStatus("error")
-    }
+      .catch(err => {
+        console.log(err)
+        setStatus("error")
+      })
   }
 
   return (
@@ -39,9 +36,9 @@ export default function Newsletter() {
           <h3 className="text-3xl font-bold text-white mb-2">📬 Assine e receba o e‑book + planilhas</h3>
           <p className="text-slate-400 mb-4">Entre para a lista gratuita. Sem spam. Você pode sair quando quiser.</p>
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 mt-4" autoComplete="on">
-            <input className="px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" name="nome" type="text" placeholder="Seu nome" required />
+            <input className="px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" name="name" type="text" placeholder="Seu nome" required />
             <input className="px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500" name="email" type="email" placeholder="Seu melhor e‑mail" required />
-            <button className="px-4 py-3 rounded-xl bg-gradient-to-br from-green-500 to-green-600 text-slate-950 font-extrabold transition hover:brightness-105" type="submit">Quero receber</button>
+            <button className="px-4 py-3 rounded-xl bg-gradient-to-br from-green-500 to-green-600 text-white font-extrabold transition hover:brightness-105" type="submit">Quero receber</button>
             <input type="hidden" name="utm" defaultValue="" />
           </form>
           {status === "success" && <p className="mt-3 text-emerald-400">✅ Pronto! Confira seu e‑mail (olhe o spam também).</p>}
