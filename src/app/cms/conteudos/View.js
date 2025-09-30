@@ -8,11 +8,13 @@ import { useAuth } from '@/providers/AuthProvider'
 import Content from '@/components/layout/Content'
 import Stack from '@/components/layout/Stack'
 import ButtonLink from '@/components/layout/ButtonLink'
+import Link from 'next/link'
+import { IconEdit } from '@tabler/icons-react'
 
 export default function View() {
   const { isAuthenticated } = useAuth()
 
-  const { data } = useFetch([`/cms/content`])
+  const { data } = useFetch([`/cms/contents`])
 
   if (!isAuthenticated) return null
 
@@ -32,12 +34,13 @@ export default function View() {
                 <th className="bg-gray-700 border-b border-gray-500 p-2" align="left">Conteúdo</th>
                 <th className="bg-gray-700 border-b border-gray-500 p-2" align="left">Descrição</th>
                 <th className="bg-gray-700 border-b border-gray-500 p-2" align="left">Status</th>
+                <th className="bg-gray-700 border-b border-gray-500 p-2" align="left">Ações</th>
               </tr>
             </thead>
             <tbody>
               {!data?.length && (
                 <tr className="hover:bg-gray-800">
-                  <td className="border-b border-gray-500 p-2" colSpan={4}>Sem conteúdos</td>
+                  <td className="border-b border-gray-500 p-2" colSpan={5}>Sem conteúdos</td>
                 </tr>
               )}
               {data?.map(content => (
@@ -46,6 +49,13 @@ export default function View() {
                   <td className="border-b border-gray-500 p-2">{content.title}</td>
                   <td className="border-b border-gray-500 p-2">{content.description}</td>
                   <td className="border-b border-gray-500 p-2">{content.created_at}</td>
+                  <td className="border-b border-gray-500 p-2">
+                    <div className="flex">
+                      <ButtonLink href={`/cms/conteudos/${content.id}`}>
+                        <IconEdit />
+                      </ButtonLink>
+                    </div>
+                  </td>
                 </tr>
               ))}
             </tbody>

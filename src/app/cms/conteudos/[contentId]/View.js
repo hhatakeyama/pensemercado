@@ -8,9 +8,14 @@ import Content from '@/components/layout/Content'
 import Stack from '@/components/layout/Stack'
 import ButtonLink from '@/components/layout/ButtonLink'
 import FormContent from '@/components/cms/forms/FormContent'
+import useFetch from '@/hooks/useFetch'
+import { useParams } from 'next/navigation'
 
 export default function View() {
   const { isAuthenticated } = useAuth()
+  const { contentId } = useParams()
+
+  const { data, mutate } = useFetch([contentId ? `/cms/contents/${contentId}` :  null])
 
   if (!isAuthenticated) return null
 
@@ -18,11 +23,11 @@ export default function View() {
     <Content>
       <Stack>
         <div className="flex items-center justify-between">
-          <h1 className="text-2xl">Novo Conteúdo</h1>
+          <h1 className="text-2xl">Editar Conteúdo</h1>
           <ButtonLink href="/cms/conteudos">Voltar</ButtonLink>
         </div>
 
-        <FormContent />
+        <FormContent mutate={mutate} values={data} />
       </Stack>
     </Content>
   )
