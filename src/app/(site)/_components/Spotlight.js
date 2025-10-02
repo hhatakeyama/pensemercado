@@ -1,14 +1,24 @@
 'use client'
 
-import fetcher from "@/utils/fetcher"
-import useSWR from "swr"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
+
+import { useFetchPolygon } from "@/hooks/useFetch"
 
 export default function Spotlight({ open, setOpen }) {
   const [search, setSearch] = useState('')
+  const [debouncedSearch, setDebouncedSearch] = useState('');
 
-  const { data } = useSWR(search ? `https://brapi.dev/api/available?search=${search}` : null, fetcher)
+  const { data } = useFetchPolygon([debouncedSearch ? `/tickers` : null, { locale: 'global', market: 'stocks', active: true, search: debouncedSearch }])
+  console.log(data)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search)
+    }, 800)
+
+    return () => clearTimeout(handler)
+  }, [search])
 
   if (!open) return null
 
@@ -33,13 +43,13 @@ export default function Spotlight({ open, setOpen }) {
           />
         </div>
         <ul className="top-0 p-2 max-h-80 overflow-y-auto">
-          {data?.stocks?.length > 0 ? (
-            data.stocks.map((item, index) => (
+          {data?.results?.length > 0 ? (
+            data.results.map((item, index) => (
               <li key={index}>
                 <Link
                   className="flex p-3 my-1 rounded-md cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 text-black transition-colors"
-                  href={`/quotes/${item}`} onClick={() => setOpen(false)}>
-                  {item}
+                  href={`/quotes/${item.ticker}`} onClick={() => setOpen(false)}>
+                  {item.ticker} - {item.name}
                 </Link>
               </li>
             ))

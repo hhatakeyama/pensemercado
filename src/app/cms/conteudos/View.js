@@ -10,6 +10,7 @@ import Stack from '@/components/layout/Stack'
 import ButtonLink from '@/components/layout/ButtonLink'
 import Link from 'next/link'
 import { IconEdit } from '@tabler/icons-react'
+import { defaultParseDate, formattedDate, formattedDateTimezone, localeDate } from '@/utils/formatter'
 
 export default function View() {
   const { isAuthenticated } = useAuth()
@@ -31,9 +32,10 @@ export default function View() {
             <thead>
               <tr>
                 <th className="bg-gray-700 border-b border-gray-500 p-2" align="left">ID</th>
-                <th className="bg-gray-700 border-b border-gray-500 p-2" align="left">Conteúdo</th>
+                <th className="bg-gray-700 border-b border-gray-500 p-2" align="left">Título</th>
                 <th className="bg-gray-700 border-b border-gray-500 p-2" align="left">Descrição</th>
-                <th className="bg-gray-700 border-b border-gray-500 p-2" align="left">Status</th>
+                <th className="bg-gray-700 border-b border-gray-500 p-2" align="left">Data de Cadastro</th>
+                <th className="bg-gray-700 border-b border-gray-500 p-2" align="left">Data de Atualização</th>
                 <th className="bg-gray-700 border-b border-gray-500 p-2" align="left">Ações</th>
               </tr>
             </thead>
@@ -47,8 +49,9 @@ export default function View() {
                 <tr className="hover:bg-gray-800" key={content.id}>
                   <td className="border-b border-gray-500 p-2">{content.id}</td>
                   <td className="border-b border-gray-500 p-2">{content.title}</td>
-                  <td className="border-b border-gray-500 p-2">{content.description}</td>
-                  <td className="border-b border-gray-500 p-2">{content.created_at}</td>
+                  <td className="border-b border-gray-500 p-2">{content.description || '--'}</td>
+                  <td className="border-b border-gray-500 p-2">{localeDate(content.created_at).toLocaleString()}</td>
+                  <td className="border-b border-gray-500 p-2">{localeDate(content.updated_at).toLocaleString()}</td>
                   <td className="border-b border-gray-500 p-2">
                     <div className="flex">
                       <ButtonLink href={`/cms/conteudos/${content.id}`}>

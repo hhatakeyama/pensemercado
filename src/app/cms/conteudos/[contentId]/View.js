@@ -1,15 +1,15 @@
 'use client'
 
 import React from 'react'
+import { useParams } from 'next/navigation'
 
+import useFetch from '@/hooks/useFetch'
 import { useAuth } from '@/providers/AuthProvider'
 
 import Content from '@/components/layout/Content'
 import Stack from '@/components/layout/Stack'
 import ButtonLink from '@/components/layout/ButtonLink'
 import FormContent from '@/components/cms/forms/FormContent'
-import useFetch from '@/hooks/useFetch'
-import { useParams } from 'next/navigation'
 
 export default function View() {
   const { isAuthenticated } = useAuth()
@@ -27,7 +27,7 @@ export default function View() {
           <ButtonLink href="/cms/conteudos">Voltar</ButtonLink>
         </div>
 
-        <FormContent mutate={mutate} values={data} />
+        {!!data && <FormContent mutate={mutate} values={data} />}
       </Stack>
     </Content>
   )

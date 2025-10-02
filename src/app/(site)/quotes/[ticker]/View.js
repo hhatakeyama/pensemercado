@@ -1,9 +1,6 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import useSWR from 'swr'
-
-import fetcher from '@/utils/fetcher'
+import { useFetchPolygon } from '@/hooks/useFetch'
 
 import Card from '@/components/layout/Card'
 import { useParams } from 'next/navigation'
@@ -15,7 +12,7 @@ import Tape from './_components/Tape'
 export default function View() {
   const params = useParams()
 
-  const { data } = useSWR(params?.ticker ? `https://brapi.dev/api/quote/${params.ticker}` : null, fetcher)
+  const { data } = useFetchPolygon([params?.ticker ? `/tickers/${params.ticker}` : null])
 
   return (
     <main className="py-10">

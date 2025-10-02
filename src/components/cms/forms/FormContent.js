@@ -9,13 +9,12 @@ import Image from "next/image"
 export default function FormContent({ mutate, values }) {
   const [status, setStatus] = useState(null)
   const [uploadImage, setUploadImage] = useState(null)
+  const [previewUrl, setPreviewUrl] = useState('')
   const [formValues, setFormValues] = useState({
     title: values?.title || '',
     slug: values?.slug || '',
-    author: values?.author || '',
     description: values?.description || '',
     content: values?.content || '',
-    image: values?.image || '',
   })
 
   const handleSubmit = (e) => {
@@ -24,15 +23,14 @@ export default function FormContent({ mutate, values }) {
       return false
     }
 
-    const formData = new FormData();
-    formData.append('title', formValues.title);
-    formData.append('slug', formValues.slug);
-    formData.append('author', formValues.author);
-    formData.append('description', formValues.description);
-    formData.append('content', formValues.content);
+    const formData = new FormData()
+    formData.append('title', formValues.title)
+    formData.append('slug', formValues.slug)
+    formData.append('description', formValues.description)
+    formData.append('content', formValues.content)
     if (uploadImage) {
-      formData.append('file', uploadImage);
-      formData.append('fileName', uploadImage.name);
+      formData.append('file', uploadImage)
+      formData.append('fileName', uploadImage.name)
       if (uploadImage?.size >= 5242880) {
         return false
       }
@@ -43,7 +41,7 @@ export default function FormContent({ mutate, values }) {
         formData,
         { headers: { 'Content-Type': 'multipart/form-data' } }
       )
-      .then(response => {
+      .then(() => {
         e.target.reset()
         mutate?.()
         setStatus("success")
@@ -54,26 +52,53 @@ export default function FormContent({ mutate, values }) {
       })
   }
 
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]
+
+    if (file) {
+      // Cria um leitor de arquivos
+      const reader = new FileReader()
+
+      // Configura o que fazer quando a leitura terminar
+      reader.onload = (e) => {
+        // 3. Atualiza o estado com a URL de dados (e.g., "data:image/jpegbase64,...")
+        setPreviewUrl(e.target.result)
+      }
+
+      // Inicia a leitura do arquivo
+      reader.readAsDataURL(file)
+    } else {
+      // Limpa a visualização se nenhum arquivo for selecionado
+      setPreviewUrl('')
+    }
+    setUploadImage(file)
+  }
+  
+  const backgroundStyle = {
+    // Se previewUrl tiver um valor, use-o; caso contrário, será uma string vazia
+    backgroundImage: previewUrl ? `url('${previewUrl}')` : 'none',
+  };
+
   return (
     <form onSubmit={handleSubmit} className="p-5 rounded-2xl bg-gradient-to-b from-white/5 to-white/2 border border-white/10 shadow-md shadow-slate-950">
       <Stack>
         <div>
-          <label className="block text-slate-400 text-sm mb-1" htmlFor="ctTitle">Imagem</label>
+          <label className="block text-slate-400 text-sm mb-1" htmlFor="ctTitle">Imagem (120x120px)</label>
           <input
             type="file"
             accept="image/png, image/jpeg"
             className="block px-3 py-2 rounded-lg text-slate-300 bg-slate-800 hover:bg-slate-600 mb-4"
-            onChange={e => setUploadImage(e.target.files?.[0] || null)}
+            onChange={handleFileChange}
           />
-          {uploadImage && (
-            <img alt="Imagem" src={URL.createObjectURL(uploadImage)} />
+          {!!previewUrl && (
+            <div className={`w-[120px] h-[120px] bg-cover bg-center`} style={backgroundStyle}></div>
           )}
-          {formValues.image && (
+          {!previewUrl && !!values?.image && (
             <Image
-              alt={formValues.image}
-              src={`${process.env.NEXT_PUBLIC_API_DOMAIN}/storage/${values.id}/350x350-${formValues.image}`}
-              width={350}
-              height={350}
+              alt={values.image}
+              src={`${process.env.NEXT_PUBLIC_API_DOMAIN}/storage/${values.id}/120x120-${values.image}`}
+              width={120}
+              height={120}
             />
           )}
         </div>

@@ -27,7 +27,7 @@ export default function View() {
                 {!!data.image && (
                   <Image
                     alt={data.image}
-                    src={`${process.env.NEXT_PUBLIC_API_DOMAIN}/storage/${data.id}/350x350-${data.image}`}
+                    src={`${process.env.NEXT_PUBLIC_API_DOMAIN}/storage/${data.id}/120x120-${data.image}`}
                     width={120}
                     height={120}
                   />

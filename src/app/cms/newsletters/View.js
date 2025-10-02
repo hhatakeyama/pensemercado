@@ -6,6 +6,7 @@ import Content from '@/components/layout/Content'
 import { useAuth } from '@/providers/AuthProvider'
 import useFetch from '@/hooks/useFetch'
 import Stack from '@/components/layout/Stack'
+import { localeDate } from '@/utils/formatter'
 
 export default function View() {
   const { isAuthenticated } = useAuth()
@@ -43,7 +44,7 @@ export default function View() {
                   <td className="border-b border-gray-500 p-2">{contact.id}</td>
                   <td className="border-b border-gray-500 p-2">{contact.name}</td>
                   <td className="border-b border-gray-500 p-2">{contact.email}</td>
-                  <td className="border-b border-gray-500 p-2">{contact.created_at}</td>
+                  <td className="border-b border-gray-500 p-2">{localeDate(contact.created_at).toLocaleString()}</td>
                 </tr>
               ))}
             </tbody>

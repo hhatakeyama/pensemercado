@@ -30,6 +30,15 @@ export const avFetcher = async (params) => {
   return res.json()
 }
 
+export const polygonFetcher = async (url) => {
+  return await fetch(`${process.env.NEXT_PUBLIC_POLYGON_IO_API_URL}${url}`, {
+    headers: {
+      'Authorization': `Bearer ${process.env.NEXT_PUBLIC_POLYGON_IO_API_TOKEN}`
+    }
+  })
+    .then((res) => res.json())
+}
+
 export default async function fetcher(url) {
   const { data } = await api.get(url)
   return data
