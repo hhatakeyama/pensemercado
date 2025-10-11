@@ -1,16 +1,15 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import Link from "next/link"
 
-import { useFetchPolygon } from "@/hooks/useFetch"
+import { useFetchApi } from "@/hooks/useFetch";
+import FmpItem from "./SpotlightItem/FmpItem"
 
 export default function Spotlight({ open, setOpen }) {
   const [search, setSearch] = useState('')
   const [debouncedSearch, setDebouncedSearch] = useState('');
 
-  const { data } = useFetchPolygon([debouncedSearch ? `/tickers` : null, { locale: 'global', market: 'stocks', active: true, search: debouncedSearch }])
-  console.log(data)
+  const { data } = useFetchApi([debouncedSearch ? `/tickers/${debouncedSearch}` : null])
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -25,7 +24,10 @@ export default function Spotlight({ open, setOpen }) {
   return (
     <div
       className="fixed inset-0 flex items-center justify-center p-4 md:p-10 z-50 backdrop-blur-sm bg-black/40"
-      onClick={() => setOpen(false)}
+      onClick={() => {
+        setSearch('')
+        setOpen(false)
+      }}
     >
       <div
         className="w-full max-w-xl bg-white dark:bg-gray-800 rounded-lg shadow-2xl overflow-hidden transition-all transform-gpu scale-100 opacity-100"
@@ -37,20 +39,19 @@ export default function Spotlight({ open, setOpen }) {
             name="search"
             autoComplete="off"
             className="px-4 py-3 rounded-xl border border-white/10 text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-            placeholder="Buscar ações, FIIs, ETFs, BDRs, índices"
+            placeholder="Buscar ações"
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
         </div>
         <ul className="top-0 p-2 max-h-80 overflow-y-auto">
-          {data?.results?.length > 0 ? (
-            data.results.map((item, index) => (
+          {data?.length > 0 ? (
+            data.map((item, index) => (
               <li key={index}>
-                <Link
-                  className="flex p-3 my-1 rounded-md cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700 text-black transition-colors"
-                  href={`/quotes/${item.ticker}`} onClick={() => setOpen(false)}>
-                  {item.ticker} - {item.name}
-                </Link>
+                <FmpItem data={item} onSelect={() => {
+                  setSearch('')
+                  setOpen(false)
+                }} />
               </li>
             ))
           ) : (

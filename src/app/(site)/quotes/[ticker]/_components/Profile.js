@@ -1,7 +1,7 @@
 // TradingViewWidget.jsx
 import React, { useEffect, useRef, memo } from 'react'
 
-function TradingViewWidget({ ticker }) {
+function TradingViewWidget({ ticker, bolsa = 'BMFBOVESPA' }) {
   const container = useRef()
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function TradingViewWidget({ ticker }) {
     script.async = true
     script.innerHTML = `
       {
-        "symbol": "BMFBOVESPA:${ticker}",
+        "symbol": "${ticker}",
         "colorTheme": "dark",
         "isTransparent": true,
         "locale": "br",
@@ -29,7 +29,7 @@ function TradingViewWidget({ ticker }) {
         container.current.removeChild(script)
       }
     }
-  }, [ticker])
+  }, [bolsa, ticker])
 
   return (
     <div className="w-full h-100">

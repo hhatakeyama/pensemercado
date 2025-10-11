@@ -3,16 +3,30 @@ import React from 'react'
 import View from './View'
 import Script from 'next/script'
 
-export default function Ticker({ params }) {
-  console.log(params)
+async function getTicker({ ticker }) {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}/api/ticker/${ticker}`, {
+    // next: { revalidate: 3600 } -> Revalida os dados a cada hora
+  });
+
+  if (!res.ok) {
+    throw new Error('Falha ao buscar os dados da API.');
+  }
+
+  return res.json();
+}
+
+export default async function Ticker({ params }) {
+  const { ticker } = await params
   const pageSchema = {
     "@context": "https://schema.org",
     "@type": "FinancialProduct",
-    "name": "Cotação `{TICKER}`",
-    "description": "Cotação e gráfico avançado de {TICKER} com API Brapi.",
-    "url": "https://pensemercado.com/cotacao.html",
+    "name": `Cotação ${ticker}`,
+    "description": `Cotação e gráfico avançado de ${ticker}.`,
+    "url": `https://pensemercado.com/quotes/${ticker}`,
     "brand": { "@type": "Brand", "name": "Pense Mercado" }
   }
+
+  const response = null // await getTicker({ ticker })
 
   return (
     <>
@@ -21,7 +35,7 @@ export default function Ticker({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
       />
-      <View />
+      <View ticker={ticker} />
     </>
   )
 }

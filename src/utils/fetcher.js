@@ -39,6 +39,19 @@ export const polygonFetcher = async (url) => {
     .then((res) => res.json())
 }
 
+export const fmpFetcher = async (url) => {
+  return await fetch(`${process.env.NEXT_PUBLIC_FMP_API_URL}${url}&apikey=${process.env.NEXT_PUBLIC_FMP_API_TOKEN}`)
+    .then((res) => res.json())
+}
+
+export async function serverApiFetcher(url) {
+  return fetch(`${process.env.NEXT_PUBLIC_ROOT_URL}${url}`).then(res => res.json())
+}
+
+export async function apiFetcher(url) {
+  return await fetch(url).then(res => res.json())
+}
+
 export default async function fetcher(url) {
   const { data } = await api.get(url)
   return data

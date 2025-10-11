@@ -38,7 +38,7 @@ export default function Nav() {
               name="search"
               autoComplete="off"
               className="px-4 py-3 rounded-xl bg-slate-900 border border-white/10 text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
-              placeholder="Buscar ações, FIIs, ETFs, BDRs, índices"
+              placeholder="Buscar ações"
               onClick={() => setOpenSpotlight(true)}
             />
           </div>

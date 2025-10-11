@@ -1,7 +1,7 @@
 // TradingViewWidget.jsx
 import React, { useEffect, useRef, memo } from 'react'
 
-function TradingViewWidget({ ticker }) {
+function TradingViewWidget({ ticker, bolsa = 'BMFBOVESPA' }) {
   const container = useRef()
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function TradingViewWidget({ ticker }) {
         "changeMode": "price-and-percent",
         "symbols": [
           [
-            "BMFBOVESPA:${ticker}|1D"
+            "${ticker}|1D"
           ]
         ],
         "dateRanges": [
@@ -57,7 +57,7 @@ function TradingViewWidget({ ticker }) {
         container.current.removeChild(script)
       }
     }
-  }, [ticker])
+  }, [bolsa, ticker])
 
   return (
     <div className="w-full h-100">
