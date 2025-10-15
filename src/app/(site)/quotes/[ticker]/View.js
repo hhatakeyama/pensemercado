@@ -6,7 +6,7 @@ import Technical from './_components/Technical'
 import Profile from './_components/Profile'
 import Tape from './_components/Tape'
 
-export default function View({ ticker }) {
+export default function View({ data, ticker }) {
   const tickerArray = ticker?.split('.')
   const symbol = tickerArray[0] || ''
   const bolsa = tickerArray[1] !== 'SA' ? 'NASDAQ' : 'BMFBOVESPA'
@@ -28,9 +28,17 @@ export default function View({ ticker }) {
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <div className="col-span-1 lg:col-span-2">
-              <Card title="Gráfico Avançado">
-                <Graphic bolsa={bolsa} ticker={symbol} />
-              </Card>
+              <div className="flex flex-col gap-5">
+                <Card title="Gráfico Avançado">
+                  <Graphic bolsa={bolsa} ticker={symbol} />
+                </Card>
+                <Card title="Detalhes">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div className="col-span-1 lg:col-span-2">
+                    </div>
+                  </div>
+                </Card>
+              </div>
             </div>
             <div className="">
               <Card title="Visão Rápida e Técnica">
@@ -39,18 +47,10 @@ export default function View({ ticker }) {
               </Card>
             </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="">
-              <Card title="Resumo do Ativo">
-                <p className="muted" id="summary">Use o seletor acima para trocar o ticker. Ex.: <strong>MGLU3</strong>, <strong>PETR4</strong>, <strong>VALE3</strong>, <strong>WEGE3</strong>. Para ações dos EUA, digite o ticker (ex.: <strong>AAPL</strong>, <strong>MSFT</strong>). O script ajusta automaticamente a bolsa quando possível.</p>
-                <p style={{ fontSize: "12px", color: "#93c5fd" }}>Dica SEO: adicione um parágrafo explicando <em>o que a empresa faz</em>, setor, drivers de resultado e links internos para conteúdos do Pense Mercado.</p>
-              </Card>
-            </div>
-            <div className="">
-              <Card title="Mercado agora">
-                <Tape ticker={symbol} />
-              </Card>
-            </div>
+          <div className="">
+            <Card title="Mercado agora">
+              <Tape ticker={symbol} />
+            </Card>
           </div>
         </div>
       </div>

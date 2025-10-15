@@ -36,7 +36,7 @@ export default function View() {
             <tbody>
               {!data?.length && (
                 <tr className="hover:bg-gray-800">
-                  <td className="border-b border-gray-500 p-2" colSpan={4}>Sem contatos</td>
+                  <td className="border-b border-gray-500 p-2" colSpan={4}>Sem newsletters</td>
                 </tr>
               )}
               {data?.map(contact => (

@@ -26,7 +26,8 @@ export default async function Ticker({ params }) {
     "brand": { "@type": "Brand", "name": "Pense Mercado" }
   }
 
-  const response = null // await getTicker({ ticker })
+  // const tickerArray = ticker?.split('.')
+  const response = null // await getTicker({ ticker: tickerArray[0] })
 
   return (
     <>
@@ -35,7 +36,7 @@ export default async function Ticker({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pageSchema) }}
       />
-      <View ticker={ticker} />
+      <View data={response} ticker={ticker} />
     </>
   )
 }
